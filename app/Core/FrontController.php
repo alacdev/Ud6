@@ -202,6 +202,34 @@ class FrontController {
                     $controlador->processAdd();
                 }
                 , 'post');
+                
+        Route::add('/usuarios-sistema/delete/([A-Za-z0-9]+)',
+                function ($codigo) {
+                    $controlador = new \Com\Daw2\Controllers\UsuarioSistemaController();
+                    $controlador->delete($codigo);
+                }
+                , 'get');
+                
+        Route::add('/usuarios-sistema/edit/([A-Za-z0-9]+)',
+                function ($id) {
+                    $controlador = new \Com\Daw2\Controllers\UsuarioSistemaController();
+                    $controlador->mostrarEdit($id);
+                }
+                , 'get');
+
+        Route::add('/usuarios-sistema/edit/([A-Za-z0-9]+)',
+                function ($id) {
+                    $controlador = new \Com\Daw2\Controllers\UsuarioSistemaController();
+                    $controlador->processEdit();
+                }
+                , 'post');
+                
+        Route::add('/usuarios-sistema/view/([A-Za-z0-9]+)',
+                function ($id) {
+                    $controlador = new \Com\Daw2\Controllers\UsuarioSistemaController();
+                    $controlador->view($id);
+                }
+                , 'get');
 
 
         Route::pathNotFound(
