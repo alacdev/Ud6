@@ -220,7 +220,7 @@ class FrontController {
         Route::add('/usuarios-sistema/edit/([A-Za-z0-9]+)',
                 function ($id) {
                     $controlador = new \Com\Daw2\Controllers\UsuarioSistemaController();
-                    $controlador->processEdit();
+                    $controlador->processEdit($id);
                 }
                 , 'post');
                 
@@ -230,6 +230,13 @@ class FrontController {
                     $controlador->view($id);
                 }
                 , 'get');
+                
+        Route::add('/usuarios-sistema/baja/([A-Za-z0-9]+)',
+                function ($id) {
+                    $controlador = new \Com\Daw2\Controllers\UsuarioSistemaController();
+                    $controlador->processBaja($id);
+                }
+                , 'post');
 
 
         Route::pathNotFound(

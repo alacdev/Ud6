@@ -17,7 +17,7 @@
             </div>
             <!-- Card Body -->
             <div class="card-body">
-                <form action="<?php echo $seccion; ?>" method="post">         
+                <form action="" method="post">         
                     <div class="row">
                         <div class="mb-3 col-sm-6">
                             <label for="nombre">Nombre de usuario</label>
