@@ -29,7 +29,7 @@
                     ?>
                     <!--<form action="./?sec=formulario" method="post">                   -->
                     <table id="tabladatos" class="table table-striped">                    
-                        <thead>
+                        <thead>                            
                             <tr>
                                 <th>Nombre</th>
                                 <th>Email</th>                          
@@ -43,7 +43,7 @@
                             <?php
                             foreach ($usuarios as $u) {
                                 ?>
-                                <tr class="<?php #echo $p['pais'] != 'España' ? 'table-warning' :  '';  ?>">
+                                <tr class="<?php echo $u['baja'] == 1 ? 'table-danger' :  '';  ?>">
                                     <td><?php echo $u['nombre']; ?></td>
                                     <td><a href="mailto: <?php echo $u['email']; ?>"><?php echo $u['email']; ?></a></td>
                                     <td><?php echo $u['nombre_rol']; ?></td>                            
@@ -53,7 +53,7 @@
                                         <a href="/usuarios-sistema/view/<?php echo $u['id_usuario']; ?>" class="btn btn-default ml-1"><i class="fas fa-eye"></i></a>
                                         <a href="/usuarios-sistema/edit/<?php echo $u['id_usuario']; ?>" class="btn btn-success ml-1"><i class="fas fa-edit"></i></a>
                                         <a href="/usuarios-sistema/delete/<?php echo $u['id_usuario']; ?>" class="btn btn-danger ml-1"><i class="fas fa-trash"></i></a>
-                                        <a href="/usuarios-sistema/baja/<?php echo $u['id_usuario']; ?>" class="btn btn-warning ml-1"><i class="fas fa-id-badge"></i></a>
+                                        <a href="/usuarios-sistema/baja/<?php echo $u['id_usuario']; ?>" class="btn btn-warning ml-1"><i class="fas fa-toggle-<?php echo $u['baja'] == 1 ? 'off' :  'on';  ?>"></i></a>
                                     </td>
 
                                 </tr>
