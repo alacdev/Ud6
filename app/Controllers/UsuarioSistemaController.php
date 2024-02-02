@@ -41,7 +41,7 @@ class UsuarioSistemaController extends \Com\Daw2\Core\BaseController {
     }
 
     function processAdd() {
-        $errores = $this->checkForm($_POST);
+        $errores = $this->checkAddForm($_POST);
         if (count($errores) > 0) {
             $data = [];
             $data['titulo'] = 'Añadir usuario';
@@ -108,7 +108,7 @@ class UsuarioSistemaController extends \Com\Daw2\Core\BaseController {
         $errores = $this->checkEditForm($_POST, $id);
         if(count($errores) == 0){
             $model = new \Com\Daw2\Models\UsuarioSistemaModel();            
-            if($model->updateUsuario($id, $_POST) && ((empty($_POST['pass']) || $model->editPassword($id, $_POST['pass'])))){                
+            if($model->updateUsuario($id, $_POST) && ((empty($_POST['password']) || $model->editPassword($id, $_POST['password'])))){                
                 header('location: /usuarios-sistema');
                 die;                
             }
@@ -173,10 +173,10 @@ class UsuarioSistemaController extends \Com\Daw2\Core\BaseController {
     
     private function checkPassword(array $data) : array{
         $errores = [];
-        if(!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/', $data['pass'])){
+        if(!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/', $data['password'])){
             $errores['password'] = 'El password debe contener una mayúscula, una minúscula y un número y tener una longitud de al menos 8 caracteres';
         }
-        else if($data['password'] != $data['pass2']){
+        else if($data['password'] != $data['confirm-password']){
             $errores['password'] = 'Las contraseñas no coinciden';
         }
         return $errores;
@@ -191,7 +191,7 @@ class UsuarioSistemaController extends \Com\Daw2\Core\BaseController {
         }
         else{
             $model = new \Com\Daw2\Models\UsuarioSistemaModel();
-            $usuario = $model->loadByEmail($data['email']);
+            $usuario = $model->loadUsersByEmail($data['email']);
             if(!is_null($usuario)){
                 $errores['email'] = 'El email seleccionado ya está en uso';
             }
@@ -221,7 +221,7 @@ class UsuarioSistemaController extends \Com\Daw2\Core\BaseController {
 
     
     
-    function view(string $id) {
+    function view(int $id) {
         $data = [];
         $modelo = new \Com\Daw2\Models\UsuarioSistemaModel();
         $input = $modelo->loadUsersById($id);
