@@ -53,7 +53,7 @@
                                         <a href="/usuarios-sistema/view/<?php echo $u['id_usuario']; ?>" class="btn btn-default ml-1"><i class="fas fa-eye"></i></a>
                                         <a href="/usuarios-sistema/edit/<?php echo $u['id_usuario']; ?>" class="btn btn-success ml-1"><i class="fas fa-edit"></i></a>
                                         <a href="/usuarios-sistema/delete/<?php echo $u['id_usuario']; ?>" class="btn btn-danger ml-1"><i class="fas fa-trash"></i></a>
-                                        <a href="/usuarios-sistema/baja/<?php echo $u['id_usuario']; ?>" class="btn btn-warning ml-1"><i class="fas fa-id-card"></i></a>
+                                        <a href="/usuarios-sistema/baja/<?php echo $u['id_usuario']; ?>" class="btn btn-warning ml-1"><i class="fas fa-id-badge"></i></a>
                                     </td>
 
                                 </tr>
