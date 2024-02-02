@@ -229,14 +229,14 @@ class FrontController {
                     $controlador = new \Com\Daw2\Controllers\UsuarioSistemaController();
                     $controlador->view($id);
                 }
-                , 'get');
+                , 'get');      
                 
         Route::add('/usuarios-sistema/baja/([A-Za-z0-9]+)',
                 function ($id) {
                     $controlador = new \Com\Daw2\Controllers\UsuarioSistemaController();
                     $controlador->processBaja($id);
                 }
-                , 'post');
+                , 'get');
 
 
         Route::pathNotFound(

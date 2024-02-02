@@ -133,12 +133,12 @@ class UsuarioSistemaController extends \Com\Daw2\Core\BaseController {
     }
     
     function processBaja(int $id) : void{
-        $model = new UsuarioSistemaController();
-        $model->processBaja($id);
+        $model = new \Com\Daw2\Models\UsuarioSistemaModel();
+        $model->changeBaja($id);
         
         $this->view->showViews(array('templates/header.view.php', 'edit.usuario_sistema.view.php', 'templates/footer.view.php'), $data);
         
-        header('location: /usuarios-sistema');
+        
     }
     
     private function checkComunForm(array $data) : array{

@@ -21,7 +21,7 @@ class UsuarioSistemaModel extends \Com\Daw2\Core\BaseModel {
             return null;
         }
     }
-    
+
     public function loadUsersByName(string $nombre): ?array {
         $stmt = $this->pdo->prepare("SELECT * FROM usuario_sistema WHERE nombre = ?");
         $stmt->execute([$nombre]);
@@ -41,17 +41,16 @@ class UsuarioSistemaModel extends \Com\Daw2\Core\BaseModel {
             return null;
         }
     }
-    
-    function loadUsersByEmailNotId(string $email, int $id) : ?array{
+
+    function loadUsersByEmailNotId(string $email, int $id): ?array {
         $query = "SELECT * FROM usuario_sistema WHERE email = ? AND id_usuario != ?";
         $stmt = $this->pdo->prepare($query);
         $stmt->execute([$email, $id]);
-        if($row = $stmt->fetch()){
+        if ($row = $stmt->fetch()) {
             return $row;
-        }
-        else{
+        } else {
             return null;
-        }                
+        }
     }
 
     function insertUsuario(array $data): bool {
@@ -61,62 +60,59 @@ class UsuarioSistemaModel extends \Com\Daw2\Core\BaseModel {
         unset($data['confirm-password']);
 //        var_dump($data);
 //        die;
-        
         //Hashear la pass
         $password = $data['password'];
-        unset ($data['password']);
-        $data['password'] = password_hash($password, PASSWORD_DEFAULT);        
+        unset($data['password']);
+        $data['password'] = password_hash($password, PASSWORD_DEFAULT);
 
-        
         if ($stmt->execute($data)) {
             return $stmt->rowCount() === 1;
         } else {
             return false;
         }
     }
-    
-    function updateUsuario(int $idUsuario, array $data) : bool{
+
+    function updateUsuario(int $idUsuario, array $data): bool {
         $query = "UPDATE usuario_sistema SET id_rol=:id_rol, email=:email, nombre=:nombre, id_idioma=:id_idioma WHERE id_usuario=:id_usuario";
         $stmt = $this->pdo->prepare($query);
         $vars = [
             'id_rol' => $data['id_rol'],
-            'email' => $data['email'],            
+            'email' => $data['email'],
             'nombre' => $data['nombre'],
             'id_idioma' => $data['id_idioma'],
             'id_usuario' => $idUsuario
         ];
-        return $stmt->execute($vars);            
+        return $stmt->execute($vars);
     }
-    
-    function editPassword(int $idUsuario, string $pass) : bool{
+
+    function editPassword(int $idUsuario, string $pass): bool {
         $query = "UPDATE usuario_sistema SET pass=? WHERE id_usuario=?";
         $stmt = $this->pdo->prepare($query);
         $encryptedPass = password_hash($pass, PASSWORD_DEFAULT);
-        return $stmt->execute([$encryptedPass, $idUsuario]);            
+        return $stmt->execute([$encryptedPass, $idUsuario]);
     }
-    
-    public function deleteUsuario(int $id) : bool{
-        $stmt = $this->pdo->prepare("DELETE FROM usuario_sistema WHERE id_usuario = ?");       
-        if($stmt->execute([$id]) && $stmt->rowCount() == 1){
-           return true;
-        } 
-        else{
+
+    public function deleteUsuario(int $id): bool {
+        $stmt = $this->pdo->prepare("DELETE FROM usuario_sistema WHERE id_usuario = ?");
+        if ($stmt->execute([$id]) && $stmt->rowCount() == 1) {
+            return true;
+        } else {
             return false;
         }
     }
-    
-    public function changeBaja(int $id) : bool{
+
+    public function changeBaja(int $id): bool {
         $usuario = $this->loadUsersById($id);
         $baja = $usuario['baja'];
         if ($baja == 1) {
-            $stmt = $this->pdo->prepare("UPDATE permisos.usuario_sistema SET baja=0 WHERE id_usuario=:id;");       
+            $stmt = $this->pdo->prepare("UPDATE permisos.usuario_sistema SET baja=0 WHERE id_usuario=:id;");
         } else {
             $stmt = $this->pdo->prepare("UPDATE permisos.usuario_sistema SET baja=1 WHERE id_usuario=:id;");
-        }        
-        if($stmt->execute([$id]) && $stmt->rowCount() == 1){
-           return true;
-        } 
-        else{
+        }
+        if ($stmt->execute([$id]) && $stmt->rowCount() == 1) {
+            header('location: /usuarios-sistema');
+            return true;
+        } else {
             return false;
         }
     }
