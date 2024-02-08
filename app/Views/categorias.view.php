@@ -15,11 +15,13 @@
                 <div class="col-6">
                 <h6 class="m-0 installfont-weight-bold text-primary">Proveedores</h6> 
                 </div>
+                <?php if (strpos($_SESSION['permisos']['categorias'], 'w') !== false) { ?>
                 <div class="col-6">                       
                     <div class="m-0 font-weight-bold justify-content-end">
                         <a href="/categorias/add/" class="btn btn-primary ml-1 float-right"> Nueva Categoría <i class="fas fa-plus-circle"></i></a>
                     </div>                    
                 </div>
+                <?php } ?>
             </div>
             <!-- Card Body -->
             <div class="card-body" id="card_table">
@@ -45,9 +47,15 @@
                                     <td><?php echo $c['nombre_categoria']; ?></td>                                     
                                     <td><?php echo $c['fullName']; ?></td>   
                                     <td> 
+                                        <?php if (strpos($_SESSION['permisos']['categorias'], 'r') !== false) { ?>
                                         <a href="/categorias/view/<?php echo $c['id_categoria']; ?>" class="btn btn-default ml-1"><i class="fas fa-eye"></i></a>
+                                        <?php } ?>
+                                        <?php if (strpos($_SESSION['permisos']['categorias'], 'w') !== false) { ?>
                                         <a href="/categorias/edit/<?php echo $c['id_categoria']; ?>" class="btn btn-success ml-1"><i class="fas fa-edit"></i></a>
+                                        <?php } ?>
+                                        <?php if (strpos($_SESSION['permisos']['categorias'], 'd') !== false) { ?>
                                         <a href="/categorias/delete/<?php echo $c['id_categoria']; ?>" class="btn btn-danger ml-1"><i class="fas fa-trash"></i></a>
+                                        <?php } ?>
                                     </td>
 
                                 </tr>

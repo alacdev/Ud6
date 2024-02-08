@@ -116,4 +116,10 @@ class UsuarioSistemaModel extends \Com\Daw2\Core\BaseModel {
             return false;
         }
     }
+    
+    function updateLastDate(int $idUsuario) : bool{
+        $query = "UPDATE usuario_sistema SET last_date= NOW() WHERE id_usuario = ?";
+        $stmt = $this->pdo->prepare($query);
+        return $stmt->execute([$idUsuario]);
+    }
 }

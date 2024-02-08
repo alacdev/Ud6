@@ -15,11 +15,13 @@
                 <div class="col-6">
                 <h6 class="m-0 installfont-weight-bold text-primary">Productos</h6> 
                 </div>
+                <?php if (strpos($_SESSION['permisos']['productos'], 'w') !== false) { ?>
                 <div class="col-6">                       
                     <div class="m-0 font-weight-bold justify-content-end">
                         <a href="/productos/add/" class="btn btn-primary ml-1 float-right"> Nuevo producto <i class="fas fa-plus-circle"></i></a>
                     </div>                    
                 </div>
+                <?php } ?>
             </div>
             <!-- Card Body -->
             <div class="card-body" id="card_table">
@@ -48,10 +50,16 @@
                             <td><?php echo $p['nombre_categoria']; ?></td>                            
                             <td><?php echo $p['codigo_proveedor']; ?></td>   
                             <td><?php echo number_format($p['pvp'], 2, ',', '.'); ?></td>                                                                             
-                            <td>                              
+                            <td>          
+                                <?php if (strpos($_SESSION['permisos']['productos'], 'r') !== false) { ?>
                                 <a href="/productos/view/<?php echo $p['codigo']; ?>" class="btn btn-default ml-1"><i class="fas fa-eye"></i></a>
+                                <?php } ?>
+                                <?php if (strpos($_SESSION['permisos']['productos'], 'w') !== false) { ?>
                                 <a href="/productos/edit/<?php echo $p['codigo']; ?>" class="btn btn-success ml-1"><i class="fas fa-edit"></i></a>
+                                <?php } ?>
+                                <?php if (strpos($_SESSION['permisos']['productos'], 'd') !== false) { ?>
                                 <a href="/productos/delete/<?php echo $p['codigo']; ?>" class="btn btn-danger ml-1"><i class="fas fa-trash"></i></a>
+                                <?php } ?>
                             </td>
 
                         </tr>
